@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 
-/** Fades/slides children in when they enter the viewport. */
+/** Fades children in once when they enter the viewport. */
 export function Reveal({ as: Tag = 'div', delay = 0, className = '', style, children, ...rest }) {
   const ref = useRef(null)
 
@@ -14,7 +14,7 @@ export function Reveal({ as: Tag = 'div', delay = 0, className = '', style, chil
           io.disconnect()
         }
       },
-      { threshold: 0.12, rootMargin: '0px 0px -8% 0px' },
+      { threshold: 0.12, rootMargin: '0px 0px -6% 0px' },
     )
     io.observe(el)
     return () => io.disconnect()
@@ -27,14 +27,18 @@ export function Reveal({ as: Tag = 'div', delay = 0, className = '', style, chil
   )
 }
 
-export function SectionHeading({ index, kicker, title, children, id }) {
+/** Editorial section header: a thin index bar above a serif title. */
+export function SectionHeading({ id, index, label, aside, title }) {
   return (
-    <Reveal className="section-heading">
-      <span className="kicker">
-        <span className="mono">{index}</span> {kicker}
-      </span>
-      <h2 id={id}>{title}</h2>
-      {children && <p className="section-heading__lead">{children}</p>}
+    <Reveal className="sh">
+      <div className="sh__bar mono">
+        <span>({index})</span>
+        <span>{label}</span>
+        {aside && <span className="sh__aside">{aside}</span>}
+      </div>
+      <h2 id={id} className="sh__title">
+        {title}
+      </h2>
     </Reveal>
   )
 }

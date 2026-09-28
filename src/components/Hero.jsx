@@ -1,95 +1,87 @@
-import { profile } from '../data.js'
-import { useTypewriter } from '../hooks.js'
-import { ArrowRightIcon, DownloadIcon, GitHubIcon, LinkedInIcon, MailIcon } from './Icons.jsx'
+import { lazy, Suspense, useRef } from 'react'
+import { facts, profile } from '../data.js'
+import { useInView } from '../hooks.js'
+import { ArrowDownIcon, DownloadIcon } from './Icons.jsx'
+import SceneBoundary from './SceneBoundary.jsx'
+
+// three.js loads in its own chunk so the text paints first.
+const HeroScene = lazy(() => import('../three/HeroScene.jsx'))
 
 export default function Hero() {
-  const role = useTypewriter(profile.roles)
+  const ref = useRef(null)
+  // Only render the 3D field while the hero is on screen.
+  const visible = useInView(ref, { threshold: 0, once: false })
 
   return (
-    <section id="home" className="hero" aria-labelledby="hero-title">
-      <div className="container hero__grid">
-        <figure className="hero__photo load-in" style={{ '--delay': '300ms' }}>
-          <span className="hero__halo" aria-hidden="true" />
-          <span className="hero__float">
-            <img
-              src="/photo.webp"
-              alt={`Portrait of ${profile.name}`}
-              width="887"
-              height="1408"
-              fetchPriority="high"
-              decoding="async"
-            />
-          </span>
-        </figure>
+    <section id="home" ref={ref} className="hero" aria-labelledby="hero-title">
+      <div className="hero__scene" aria-hidden="true">
+        <SceneBoundary>
+          <Suspense fallback={null}>
+            <HeroScene active={visible} track={ref} />
+          </Suspense>
+        </SceneBoundary>
+      </div>
 
-        <div className="hero__content">
-          <p className="eyebrow load-in" style={{ '--delay': '100ms' }}>
-            <span className="pulse-dot" aria-hidden="true" />
-            Open to opportunities · {profile.location}
+      <div className="container hero__inner">
+        <div className="hero__text">
+          <p className="hero__status mono load-in" style={{ '--delay': '80ms' }}>
+            <span className="status-dot" aria-hidden="true" />
+            {profile.availability}
           </p>
 
           <h1 id="hero-title" className="hero__title">
             <span className="line">
-              <span className="load-in" style={{ '--delay': '220ms' }}>
+              <span className="load-line" style={{ '--delay': '160ms' }}>
                 Sabi
               </span>
             </span>
             <span className="line">
-              <span className="gradient-text load-in" style={{ '--delay': '340ms' }}>
-                Ahamed J
-              </span>
+              <em className="load-line" style={{ '--delay': '260ms' }}>
+                Ahamed J<span className="accent-dot">.</span>
+              </em>
             </span>
           </h1>
 
-          <p className="hero__role load-in" style={{ '--delay': '480ms' }}>
-            <span className="sr-only">{profile.roles.join(', ')}</span>
-            <span aria-hidden="true">
-              <span className="hero__prompt">&gt;</span> {role}
-              <span className="caret" />
-            </span>
+          <p className="hero__lead load-in" style={{ '--delay': '420ms' }}>
+            Full-stack developer building interactive 3D tools and retrieval-based AI for the web. I take ideas from a
+            blank repo to something people can use.
           </p>
 
-          <p className="hero__lead load-in" style={{ '--delay': '600ms' }}>
-            {profile.tagline}
-          </p>
-
-          <div className="hero__actions load-in" style={{ '--delay': '720ms' }}>
-            <a href="#projects" className="btn btn--primary">
-              View my work <ArrowRightIcon size={18} />
+          <div className="hero__actions load-in" style={{ '--delay': '540ms' }}>
+            <a href="#work" className="btn btn--solid">
+              Selected work <ArrowDownIcon size={16} />
             </a>
-            <a href={profile.resume} className="btn btn--ghost" download="Sabi_Ahamed_J_Resume.pdf">
-              <DownloadIcon size={18} /> Download CV
+            <a href={profile.resume} className="btn btn--line" download="Sabi_Ahamed_J_Resume.pdf">
+              <DownloadIcon size={16} /> Résumé
             </a>
           </div>
-
-          <ul className="socials load-in" style={{ '--delay': '840ms' }} aria-label="Social links">
-            <li>
-              <a href={profile.github} target="_blank" rel="noreferrer" aria-label="GitHub profile">
-                <GitHubIcon />
-              </a>
-            </li>
-            <li>
-              <a href={profile.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn profile">
-                <LinkedInIcon />
-              </a>
-            </li>
-            <li>
-              <a href={`mailto:${profile.email}`} aria-label={`Email ${profile.email}`}>
-                <MailIcon />
-              </a>
-            </li>
-          </ul>
         </div>
+
+        <figure className="hero__photo load-in" style={{ '--delay': '300ms' }}>
+          <img
+            src="/photo.webp"
+            alt={`Portrait of ${profile.name}`}
+            width="887"
+            height="1408"
+            fetchPriority="high"
+            decoding="async"
+          />
+          <figcaption className="hero__caption mono" aria-hidden="true">
+            SAJ / 2026
+          </figcaption>
+        </figure>
       </div>
 
-      <a href="#about" className="scroll-cue" aria-label="Scroll to About section">
-        <span className="scroll-cue__mouse" aria-hidden="true">
-          <span />
-        </span>
-        <span className="mono" aria-hidden="true">
-          scroll
-        </span>
-      </a>
+      <div className="hero__meta">
+        <dl className="container hero__facts">
+          {facts.map((f) => (
+            <div key={f.label}>
+              <dt className="mono">{f.label}</dt>
+              <dd>{f.value}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
     </section>
   )
 }

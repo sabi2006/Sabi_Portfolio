@@ -1,5 +1,4 @@
 import { experience } from '../data.js'
-import { BriefcaseIcon, CapIcon } from './Icons.jsx'
 import { Reveal, SectionHeading } from './Reveal.jsx'
 
 export default function Experience() {
@@ -9,42 +8,27 @@ export default function Experience() {
         <SectionHeading
           id="experience-title"
           index="03"
-          kicker="Journey"
+          label="Experience & education"
           title={
             <>
-              Experience & <span className="gradient-text">education</span>
+              Where I've <em>learned by doing.</em>
             </>
           }
         />
 
-        <ol className="timeline">
+        <ol className="rows">
           {experience.map((e, i) => (
-            <Reveal as="li" key={e.role} className="timeline__item" delay={i * 120}>
-              <span className="timeline__node" aria-hidden="true">
-                {e.type === 'work' ? <BriefcaseIcon /> : <CapIcon />}
-              </span>
-              <article className="timeline__card glass">
-                <header className="timeline__head">
-                  <div>
-                    <h3>{e.role}</h3>
-                    <p className="timeline__org">{e.org}</p>
-                  </div>
-                  <span className="badge mono">{e.period}</span>
-                </header>
-                {e.meta && <p className="muted timeline__meta">{e.meta}</p>}
-                <ul className="bullets">
-                  {e.points.map((pt) => (
-                    <li key={pt}>{pt}</li>
-                  ))}
-                </ul>
-                <ul className="chips" aria-label="Focus areas">
-                  {e.tags.map((t) => (
-                    <li key={t} className="chip">
-                      {t}
-                    </li>
-                  ))}
-                </ul>
-              </article>
+            <Reveal as="li" key={e.role} className="row" delay={i * 80}>
+              <p className="row__period mono">{e.period}</p>
+              <div className="row__who">
+                <h3>{e.role}</h3>
+                <p>{e.org}</p>
+              </div>
+              <ul className="row__points">
+                {e.points.map((pt) => (
+                  <li key={pt}>{pt}</li>
+                ))}
+              </ul>
             </Reveal>
           ))}
         </ol>

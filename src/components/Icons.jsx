@@ -59,6 +59,12 @@ export const ArrowRightIcon = (p) => (
   </Stroke>
 )
 
+export const ArrowDownIcon = (p) => (
+  <Stroke {...p}>
+    <path d="M12 5v14M6 13l6 6 6-6" />
+  </Stroke>
+)
+
 export const ArrowUpRightIcon = (p) => (
   <Stroke {...p}>
     <path d="M7 17 17 7M8 7h9v9" />

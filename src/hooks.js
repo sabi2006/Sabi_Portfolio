@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 const REDUCED_QUERY = '(prefers-reduced-motion: reduce)'
 
@@ -13,76 +13,8 @@ export function usePrefersReducedMotion() {
   return reduced
 }
 
-/** Types and deletes a rotating list of words. */
-export function useTypewriter(words, { typeSpeed = 70, deleteSpeed = 38, hold = 1700 } = {}) {
-  const reduced = usePrefersReducedMotion()
-  const [text, setText] = useState('')
-  const state = useRef({ word: 0, char: 0, deleting: false })
-
-  useEffect(() => {
-    if (reduced) {
-      setText(words[0])
-      return
-    }
-    let timer
-    const tick = () => {
-      const s = state.current
-      const word = words[s.word]
-      if (!s.deleting) {
-        s.char += 1
-        setText(word.slice(0, s.char))
-        if (s.char >= word.length) {
-          s.deleting = true
-          timer = setTimeout(tick, hold)
-          return
-        }
-        timer = setTimeout(tick, typeSpeed)
-      } else {
-        s.char -= 1
-        setText(word.slice(0, s.char))
-        if (s.char <= 0) {
-          s.deleting = false
-          s.word = (s.word + 1) % words.length
-          timer = setTimeout(tick, 320)
-          return
-        }
-        timer = setTimeout(tick, deleteSpeed)
-      }
-    }
-    timer = setTimeout(tick, 700)
-    return () => clearTimeout(timer)
-  }, [reduced, words, typeSpeed, deleteSpeed, hold])
-
-  return text
-}
-
-/** Moves the spotlight element with the pointer (transform only, no page repaint). */
-export function useSpotlight(ref) {
-  useEffect(() => {
-    const el = ref.current
-    if (!el || !window.matchMedia('(pointer: fine)').matches) return
-    let raf = 0
-    let x = 0
-    let y = 0
-    const onMove = (e) => {
-      x = e.clientX
-      y = e.clientY
-      if (raf) return
-      raf = requestAnimationFrame(() => {
-        el.style.transform = `translate3d(${x}px, ${y}px, 0)`
-        raf = 0
-      })
-    }
-    window.addEventListener('pointermove', onMove, { passive: true })
-    return () => {
-      window.removeEventListener('pointermove', onMove)
-      cancelAnimationFrame(raf)
-    }
-  }, [ref])
-}
-
-/** Returns true once the element has scrolled into view. */
-export function useInView(ref, { threshold = 0.2, rootMargin = '0px' } = {}) {
+/** Tracks whether an element is on screen. With `once`, it stays true after the first hit. */
+export function useInView(ref, { threshold = 0.2, rootMargin = '0px', once = true } = {}) {
   const [inView, setInView] = useState(false)
   useEffect(() => {
     const el = ref.current
@@ -91,13 +23,29 @@ export function useInView(ref, { threshold = 0.2, rootMargin = '0px' } = {}) {
       ([entry]) => {
         if (entry.isIntersecting) {
           setInView(true)
-          io.disconnect()
+          if (once) io.disconnect()
+        } else if (!once) {
+          setInView(false)
         }
       },
       { threshold, rootMargin },
     )
     io.observe(el)
     return () => io.disconnect()
-  }, [ref, threshold, rootMargin])
+  }, [ref, threshold, rootMargin, once])
   return inView
+}
+
+/** Current local time (HH:MM) in a given time zone, refreshed every 15 s. */
+export function useClock(timeZone = 'Asia/Kolkata') {
+  const fmt = useMemo(
+    () => new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', timeZone }),
+    [timeZone],
+  )
+  const [now, setNow] = useState(() => fmt.format(new Date()))
+  useEffect(() => {
+    const id = setInterval(() => setNow(fmt.format(new Date())), 15000)
+    return () => clearInterval(id)
+  }, [fmt])
+  return now
 }

@@ -2,83 +2,54 @@
 
 export const profile = {
   name: 'Sabi Ahamed J',
-  roles: ['Full Stack Developer', 'AI / ML Engineer', '3D Web Builder', 'Problem Solver'],
+  role: 'Full-stack developer',
   location: 'Dindigul, Tamil Nadu',
   email: 'sabiahamed7@gmail.com',
   phone: '+91 9500959183',
   linkedin: 'https://linkedin.com/in/sabi-ahamed-j',
   github: 'https://github.com/sabi2006',
   resume: '/resume.pdf',
-  tagline:
-    'I build fast, interactive web apps, from real-time 3D visualizers in Three.js to RAG-powered AI assistants.',
-  summary:
-    'Motivated full stack developer with hands-on experience building practical, user-friendly web applications through academic and personal projects. I enjoy applying problem solving to real-world challenges and turning ideas into efficient, working software.',
-  summary2:
-    "I'm pursuing a B.Tech in Information Technology at PSNA College of Engineering and Technology, and I'm continuously exploring AI and machine learning to build smarter, more useful products.",
+  availability: 'Open to internships & graduate roles, 2027',
 }
 
+export const facts = [
+  { label: 'Based in', value: 'Dindigul, India' },
+  { label: 'Studying', value: 'B.Tech IT, PSNA CET' },
+  { label: 'Graduating', value: '2027' },
+  { label: 'Focus', value: 'Full-stack, 3D web, applied AI' },
+]
+
+export const about = [
+  "I'm a final-year Information Technology student who likes building software people can actually use. Most of my work sits where the web meets something harder: real-time 3D in the browser, retrieval pipelines over large datasets, or hardware reporting to a live dashboard.",
+  'I recently completed an AI/ML internship at Phoenix Softech, taking a machine-learning project from data preprocessing through training, optimisation and testing. I care about clear interfaces, measurable results and code the next person can read.',
+]
+
 export const stats = [
-  { value: 3, suffix: '+', label: 'Full stack & AI projects shipped' },
-  { value: 2, suffix: '', label: 'Hackathon podium finishes' },
-  { value: 5, suffix: '', label: 'Industry certifications' },
-  { value: 400, suffix: '+', label: 'Teams competed against' },
-]
-
-export const skillGroups = [
-  { title: 'Languages', color: '#22d3ee', items: ['Java', 'Python', 'JavaScript', 'TypeScript', 'HTML', 'CSS'] },
-  { title: 'Frameworks & 3D', color: '#8b5cf6', items: ['React', 'Next.js', 'Three.js', 'React Three Fiber', 'Flask', 'Prisma'] },
-  { title: 'Databases', color: '#10b981', items: ['MySQL', 'MongoDB', 'PostgreSQL'] },
-  {
-    title: 'AI & ML',
-    color: '#f472b6',
-    items: ['RAG', 'Vector Search', 'Semantic Search', 'Prompt Engineering', 'Structured Outputs', 'Machine Learning'],
-  },
-  { title: 'Core CS', color: '#f59e0b', items: ['Data Structures & Algorithms', 'OOP', 'DBMS', 'Operating Systems'] },
-  { title: 'Tools', color: '#60a5fa', items: ['Git', 'GitHub', 'VS Code', 'Linux'] },
-]
-
-export const experience = [
-  {
-    type: 'work',
-    role: 'AIML Intern',
-    org: 'Phoenix Softech',
-    period: 'Jun 2026',
-    points: [
-      'Worked on applied artificial intelligence in Python through hands-on project development.',
-      'Designed and implemented machine learning models for real-world problem solving.',
-      'Focused on data preprocessing, model training and performance optimization.',
-      'Delivered an end-to-end AI project covering solution design, implementation and testing.',
-    ],
-    tags: ['Python', 'Machine Learning', 'Data Preprocessing', 'Model Training'],
-  },
-  {
-    type: 'education',
-    role: 'B.Tech, Information Technology',
-    org: 'PSNA College of Engineering and Technology',
-    period: '2023 – 2027',
-    meta: 'Dindigul, Tamil Nadu · CGPA 7.6',
-    points: [
-      'Core coursework in Data Structures & Algorithms, OOP, DBMS and Operating Systems.',
-      'Podium finishes at national hackathons hosted by VIT Chennai and VIT Vellore.',
-    ],
-    tags: ['DSA', 'OOP', 'DBMS', 'OS'],
-  },
+  { value: '3', label: 'Production-style projects' },
+  { value: '2', label: 'Hackathon podiums' },
+  { value: '5', label: 'Certifications' },
+  { value: '400+', label: 'Teams competed against' },
 ]
 
 export const projects = [
   {
     id: 'construct',
     title: 'Construction 3D Visualizer & Brick Calculator',
-    category: 'Full Stack · 3D',
+    short: 'Estimation platform with a live 3D wall',
+    category: 'Full-stack · 3D',
     year: 2026,
     visual: 'bricks',
-    accent: '#f59e0b',
-    accent2: '#ef4444',
+    figure: 'Wall estimate with live material counts',
     description:
-      'A construction estimation platform with real-time brick, mortar, material and cost calculations, including unit conversion and wastage estimation, paired with an interactive 3D wall visualizer.',
+      'A construction estimation platform that turns wall dimensions into brick, mortar, material and cost figures in real time, then renders the wall in 3D so the estimate can be checked visually.',
+    highlights: [
+      'Real-time brick, mortar, material and cost calculations',
+      'Unit conversion and wastage estimation built into every result',
+      'Interactive 3D wall rendered with Three.js InstancedMesh for smooth performance',
+    ],
     metrics: [
-      { value: 'Real-time', label: 'cost & material estimates' },
-      { value: 'Instanced', label: '3D wall rendering' },
+      { value: 'Live', label: 'Cost and material estimates' },
+      { value: '1 draw call', label: 'Per wall via instancing' },
     ],
     stack: ['Next.js', 'React', 'TypeScript', 'Prisma', 'Three.js', 'React Three Fiber'],
     link: 'https://github.com/sabi2006',
@@ -86,61 +57,94 @@ export const projects = [
   {
     id: 'medical',
     title: 'Medical AI Assistant using RAG',
-    category: 'AI · Retrieval Augmented Generation',
+    short: 'Retrieval-augmented chatbot over 1.3 GB of data',
+    category: 'Applied AI',
     year: 2026,
     visual: 'neural',
-    accent: '#22d3ee',
-    accent2: '#8b5cf6',
+    figure: 'Query → retrieve → augment → generate',
     description:
-      'An AI-powered medical chatbot built on a RAG architecture. A 1.3 GB medical dataset was processed and indexed for semantic search, with an optimized vector search pipeline.',
-    metrics: [
-      { value: '+40%', label: 'response accuracy' },
-      { value: '−35%', label: 'query response time' },
-      { value: '200+', label: 'concurrent queries' },
+      'An AI medical assistant built on retrieval-augmented generation. A 1.3 GB medical dataset was processed and indexed for semantic search, so answers are grounded in retrieved sources rather than the model alone.',
+    highlights: [
+      'Processed and indexed a 1.3 GB medical corpus for semantic search',
+      'Optimised vector search for faster, more accurate retrieval',
+      'Pipeline designed to handle 200+ concurrent queries',
     ],
-    stack: ['Python', 'RAG', 'Vector Search', 'Semantic Search', 'LLMs'],
+    metrics: [
+      { value: '+40%', label: 'Response accuracy' },
+      { value: '−35%', label: 'Query response time' },
+      { value: '200+', label: 'Concurrent queries' },
+    ],
+    stack: ['Python', 'RAG', 'Vector search', 'Semantic search', 'LLMs'],
     link: 'https://github.com/sabi2006',
   },
   {
     id: 'trolley',
     title: 'Smart Trolley',
-    category: 'IoT · Full Stack',
+    short: 'IoT shopping cart with automated checkout',
+    category: 'IoT · Full-stack',
     year: 2025,
     visual: 'cart',
-    accent: '#10b981',
-    accent2: '#22d3ee',
+    figure: 'Scan → bill → pay, straight from the cart',
     description:
-      'A smart shopping trolley with real-time IoT sensor integration, barcode scanning, automated billing and inventory management, backed by REST APIs and live dashboards.',
+      'A smart shopping trolley that scans products as they go in, bills automatically and keeps inventory in sync, backed by REST APIs and live dashboards for the store.',
+    highlights: [
+      'Real-time barcode scanning with IoT sensor integration',
+      'Automated billing and inventory management',
+      'REST APIs and dashboards for live inventory tracking',
+    ],
     metrics: [
-      { value: '−40%', label: 'checkout time' },
-      { value: 'Live', label: 'inventory tracking' },
+      { value: '−40%', label: 'Checkout time' },
+      { value: 'Live', label: 'Inventory sync' },
     ],
     stack: ['React', 'Flask', 'MongoDB', 'PostgreSQL', 'IoT'],
     link: 'https://github.com/sabi2006',
   },
 ]
 
+export const experience = [
+  {
+    period: 'Jun 2026',
+    role: 'AI/ML Intern',
+    org: 'Phoenix Softech',
+    points: [
+      'Built applied AI projects in Python from problem definition to delivery.',
+      'Designed and implemented machine-learning models for real-world problems.',
+      'Owned data preprocessing, model training and performance optimisation.',
+      'Delivered an end-to-end AI project covering design, implementation and testing.',
+    ],
+  },
+  {
+    period: '2023 – 2027',
+    role: 'B.Tech, Information Technology',
+    org: 'PSNA College of Engineering and Technology',
+    points: [
+      'CGPA 7.6. Coursework in data structures & algorithms, OOP, DBMS and operating systems.',
+      'Two podium finishes at national hackathons hosted by VIT Chennai and VIT Vellore.',
+    ],
+  },
+]
+
+export const skillGroups = [
+  { title: 'Languages', items: ['Java', 'Python', 'JavaScript', 'TypeScript', 'HTML & CSS'] },
+  { title: 'Frameworks', items: ['React', 'Next.js', 'Flask', 'Prisma'] },
+  { title: '3D & graphics', items: ['Three.js', 'React Three Fiber', 'InstancedMesh'] },
+  { title: 'Data', items: ['PostgreSQL', 'MySQL', 'MongoDB'] },
+  {
+    title: 'Applied AI',
+    items: ['RAG pipelines', 'Vector & semantic search', 'Prompt design', 'Structured outputs', 'Machine learning'],
+  },
+  { title: 'Foundations & tools', items: ['DSA', 'OOP', 'DBMS', 'Operating systems', 'Git & GitHub', 'Linux'] },
+]
+
 export const awards = [
-  {
-    place: '3rd',
-    title: 'Hack-a-Cure',
-    host: 'VIT Chennai',
-    year: 2025,
-    detail: 'Second runner-up among 300+ participating teams.',
-  },
-  {
-    place: '3rd',
-    title: 'Hackovation 2.0',
-    host: 'VIT Vellore',
-    year: 2025,
-    detail: 'Second runner-up among 100+ participating teams.',
-  },
+  { place: '3rd', title: 'Hack-a-Cure', host: 'VIT Chennai', year: 2025, detail: 'Second runner-up of 300+ teams' },
+  { place: '3rd', title: 'Hackovation 2.0', host: 'VIT Vellore', year: 2025, detail: 'Second runner-up of 100+ teams' },
 ]
 
 export const certifications = [
   { title: 'AIML Engineer Certification', issuer: 'Phoenix Softech', year: 2026 },
-  { title: 'Linux Fundamentals (RH104-RHA)', issuer: 'Red Hat', year: 2026 },
-  { title: 'HackSpora 2k25 · 24h National Hackathon', issuer: 'Karpagam Academy of Higher Education', year: 2025 },
+  { title: 'Linux Fundamentals (RH104)', issuer: 'Red Hat', year: 2026 },
+  { title: 'HackSpora 2k25, 24-hour national hackathon', issuer: 'Karpagam Academy of Higher Education', year: 2025 },
   { title: 'JavaScript Certification', issuer: 'HackerRank', year: 2025 },
-  { title: 'MongoDB CRUD Developer Certification', issuer: 'MongoDB', year: 2024 },
+  { title: 'MongoDB CRUD Developer', issuer: 'MongoDB', year: 2024 },
 ]
